@@ -1755,7 +1755,24 @@ def pagina_cadastros():
                                     st.success("Grupo atualizado!")
                                     st.rerun()
                             with col_m4:
-                                st.info(f"Tipo: {tipo_label}")
+                                opcoes_tipo = ["material", "epi"]
+                                tipo_atual_idx = opcoes_tipo.index(m.tipo) if m.tipo in opcoes_tipo else 0
+                                novo_tipo_m = st.selectbox(
+                                    "Tipo",
+                                    opcoes_tipo,
+                                    index=tipo_atual_idx,
+                                    format_func=lambda x: "Material de Limpeza" if x == "material" else "EPI",
+                                    key=f"edit_tipo_mat_{m.id}"
+                                )
+                                if st.button("\U0001f527 Alterar Tipo", key=f"btn_alt_tipo_{m.id}"):
+                                    if novo_tipo_m != m.tipo:
+                                        m.tipo = novo_tipo_m
+                                        session.commit()
+                                        novo_label = "Material de Limpeza" if novo_tipo_m == "material" else "EPI"
+                                        st.success(f"Tipo alterado para {novo_label}!")
+                                        st.rerun()
+                                    else:
+                                        st.info("Tipo ja e o selecionado.")
                                 if not m.ativo:
                                     if st.button("\U0001f5d1 Excluir", key=f"excl_mat_{m.id}"):
                                         tem_compras = session.query(Compra).filter_by(material=m.nome).first()
