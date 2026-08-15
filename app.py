@@ -272,7 +272,7 @@ def popular_dados():
             "SMARTFIT - PARNAMIRIM/RN",
             "SMARTFIT NATAL IGAPO - RN",
             "SMARTFIT PONTA NEGRA - MANAUS/AM",
-            "SMARTFIT FLORES - MANAUS/AP",
+            "SMARTFIT FLORES - MANAUS/AM",
             "SMARTFIT TREM - MACAPA/AP",
             "SMARTFIT FLODOALDO - PORTO VELHO/RO",
             "SMARTFIT NOVA PORTO - PORTO VELHO/RO",
@@ -294,7 +294,7 @@ def popular_dados():
             "SELFIT MANAUS PLAZA/AM",
             # OUTROS
             "UNIMED CARUARU COOP DE TRABALHO MEDICO",
-            "LSF JUZEIRO DO NORTE-CE",
+            "LSF JUAZEIRO DO NORTE-CE",
             "CELISTICS - JABOATAO (EMBRATEL)",
             "CONSTRUTORA BAGGIO",
             "EMPORIO KARLA - MANEPA",
@@ -323,6 +323,8 @@ def popular_dados():
             "FS SERVICOS DE JARDINAGEM LTDA",
             "ESCRITORIO MINEIRAO - SALVADOR/BA",
             "AS PARALELA CONSTRUCOES SPE LTDA",
+            "SHOPPING DIFUSORA - CARUARU",
+            "CONDOMINIO SHOPPING DIFUSORA",
             "CABINE PECAS E ACESSORIOS LTDA-PE",
         ]
         # Remover duplicatas mantendo a ordem
