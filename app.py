@@ -115,12 +115,12 @@ def popular_dados():
     try:
         # --- GRUPOS DE CLIENTE ---
         grupos = [
-            "SMART FIT",
-            "SELF FIT",
             "ASSAI",
             "ATACADAO",
             "NOVO ATACAREJO",
             "GRUPO MATEUS",
+            "SMART FIT",
+            "SELF FIT",
             "OUTROS",
         ]
         for nome in grupos:
@@ -129,17 +129,16 @@ def popular_dados():
                 session.add(GrupoCliente(nome=nome))
         session.commit()
 
-        # --- CLIENTES (lista conforme imagens do sistema) ---
+        # --- CLIENTES (lista conforme screenshots do sistema) ---
         clientes_lista = [
+            # ATACADAO FILIAL
+            "ATACADAO - FILIAL 01",
+            "ATACADAO - FILIAL 02",
+            "ATACADAO - FILIAL 03",
+            "ATACADAO - FILIAL 04",
+            "ATACADAO - FILIAL 05",
+            "ATACADAO - FILIAL 06",
             # ASSAI
-            "ASSAI - FILIAL 03",
-            "ASSAI - FILIAL 04",
-            "ASSAI - FILIAL 05",
-            "ASSAI - FILIAL 06",
-            "ASSAI - FILIAL 07",
-            "ASSAI - FILIAL 08",
-            "ASSAI - FILIAL 09",
-            "ASSAI - FILIAL 10",
             "ASSAI MONTESE - CE",
             "CD ASSAI PAULISTA",
             "ASSAI NATAL RN",
@@ -160,6 +159,7 @@ def popular_dados():
             "ASSAI CAMACARI-BA",
             "ASSAI MUSSURUNGA - BA",
             "ASSAI FEIRA DE SANTANA-BA",
+            "ASSAI AV. RECIFE",
             "ASSAI JUAZEIRO - BA",
             "ASSAI SALVADOR PARALELA - BA",
             "ASSAI TOMBA - BA",
@@ -168,7 +168,6 @@ def popular_dados():
             "ASSAI PEIXINHOS/PE",
             "ASSAI CARUARU II - PE",
             "ASSAI CARUARU-PE",
-            "ASSAI AV. RECIFE",
             "ASSAI BOA VISTA - RR",
             "ASSAI MACAPA II - AP",
             "ASSAI MANAUS - AM",
@@ -192,7 +191,7 @@ def popular_dados():
             "ATACADAO IPUTINGA",
             "ATACADAO IGARASSU - PE",
             "ATACADAO CAMARAGIBE - PE",
-            "ATACADAO JACARECIDA-AL",
+            "ATACADAO JACARECICA-AL",
             "ATACADAO TABULEIRO DOS MARTINS-AL",
             "ATACADAO CAMPINA GRANDE-PB",
             # NOVO ATACAREJO
@@ -215,7 +214,7 @@ def popular_dados():
             "NOVO ATACAREJO - BEZERROS",
             "NOVO ATACAREJO - TIMBAUBA",
             "NOVO ATACAREJO - SURUBIM",
-            "NOVO ATACAREJO - CARPINA II/PE",
+            "NOVO ATACAREJO - CARPINA I/PE",
             "NOVO ATACAREJO - AFOGADOS/PE",
             "CD NOVO ATACAREJO - MORENO/PE",
             "NOVO ATACAREJO - PEDRAS DE FOGO/PB",
@@ -231,7 +230,7 @@ def popular_dados():
             "NOVO ATACAREJO - ESCRITORIO RECIFE/PE",
             "NOVO ATACAREJO - SALGUEIRO/PE",
             "NOVO ATACAREJO - CAMARAGIBE/PE",
-            "NOVO ATACAREJO - PAULISTA II/PE",
+            "NOVO ATACAREJO - PAULISTA I/PE",
             "NOVO ATACAREJO OURO PRETO/PE",
             "NOVO ATACAREJO - IPOJUCA/PE",
             "NOVO ATACAREJO - TORITAMA/PE",
@@ -241,7 +240,7 @@ def popular_dados():
             "GRUPO MATEUS - PETROLINA",
             "CD MATEUS - CABO DE STO AGOSTINHO",
             "CD MATEUS - FEIRA DE SANTANA",
-            "GRUPO MATEUS - ARACAJU/SE",
+            "GRUPO MATEUS- ARACAJU/SE",
             "GRUPO MATEUS - SERRARIA/AL",
             "GRUPO MATEUS - PRADO/AL",
             "GRUPO MATEUS - VITORIA DA CONQUISTA/BA",
@@ -282,7 +281,7 @@ def popular_dados():
             "SMARTFIT PONTA NEGRA - MANAUS/AM",
             "SMARTFIT FLORES - MANAUS/AM",
             "SMARTFIT TREM - MACAPA/AP",
-            "SMARTFIT FLODOALDO - PORTO VELHO/RO",
+            "SMARTFIT FLDOALDO - PORTO VELHO/RO",
             "SMARTFIT NOVA PORTO - PORTO VELHO/RO",
             "SMARTFIT NOVO ALEIXO - MANAUS/AM",
             "SMARTFIT TORQUATO TAPAJOS - MANAUS/AM",
@@ -308,7 +307,7 @@ def popular_dados():
             "EMPORIO KARLA - MANEPA",
             "EMPORIO KARLA - BEIRA MAR",
             "EMPORIO KARLA - PAU AMARELO",
-            "GRUPO A B ARAUJO/PE",
+            "GRUPO AB ARAUJO/PE",
             "CAMIL ALIMENTOS/PE",
             "FG SERVICES EIRELI ME",
             "IGREJA EVANGELICA ASSEMBLEIA DE DEUS",
