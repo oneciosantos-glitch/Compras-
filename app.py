@@ -167,19 +167,19 @@ def pagina_dashboard():
     session = get_session()
     try:
         # Totais gerais
-        total_orcamentos = session.query(Compra).filter(Compra.orcamento_id.isnot(None)).count()
+        total_itens = session.query(Compra).filter(Compra.orcamento_id.isnot(None)).count()
         orcamentos_unicos = session.query(Compra.orcamento_id).filter(
             Compra.orcamento_id.isnot(None)
         ).distinct().count()
 
-        # Total por situacao
+        # Total por situacao - CONTAR POR PEDIDOS (orcamentos), nao por itens
         sit_counts = {}
         for s in SITUACOES:
-            sit_counts[s] = session.query(Compra).filter(
+            sit_counts[s] = session.query(Compra.orcamento_id).filter(
                 Compra.orcamento_id.isnot(None), Compra.situacao == s
-            ).count()
+            ).distinct().count()
 
-        # Valor total
+        # Valor total (soma de todos os itens de todos os orcamentos)
         from sqlalchemy import func
         valor_total = session.query(func.sum(Compra.valor_total)).filter(
             Compra.orcamento_id.isnot(None)
@@ -188,13 +188,13 @@ def pagina_dashboard():
         # Colunas de metricas
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.metric("📋 Total de Orcamentos", orcamentos_unicos)
+            st.metric("📋 Total de Pedidos", orcamentos_unicos)
         with col2:
-            st.metric("📦 Total de Itens", total_orcamentos)
+            st.metric("📦 Total de Itens", total_itens)
         with col3:
             st.metric("💰 Valor Total", formatar_moeda(valor_total))
         with col4:
-            st.metric("✅ Itens Entregues", sit_counts.get("Entregue", 0))
+            st.metric("✅ Pedidos Entregues", sit_counts.get("Entregue", 0))
 
         st.markdown("---")
 
@@ -203,28 +203,28 @@ def pagina_dashboard():
         with col_s1:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#1e40af; margin:0;">📋 Orcamento Realizado</h4>
+                <h4 style="color:#1e40af; margin:0;">📋 Pedidos: Orcamento Realizado</h4>
                 <h2 style="color:#1e40af; margin:5px 0;">{sit_counts.get('Orcamento realizado', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_s2:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#ca8a04; margin:0;">📧 Enviado ao Financeiro</h4>
+                <h4 style="color:#ca8a04; margin:0;">📧 Pedidos: Enviado ao Financeiro</h4>
                 <h2 style="color:#ca8a04; margin:5px 0;">{sit_counts.get('Enviado ao financeiro', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_s3:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#16a34a; margin:0;">💰 Pago</h4>
+                <h4 style="color:#16a34a; margin:0;">💰 Pedidos: Pagos</h4>
                 <h2 style="color:#16a34a; margin:5px 0;">{sit_counts.get('Pago', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_s4:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#0891b2; margin:0;">🚚 Entregue</h4>
+                <h4 style="color:#0891b2; margin:0;">🚚 Pedidos: Entregues</h4>
                 <h2 style="color:#0891b2; margin:5px 0;">{sit_counts.get('Entregue', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
