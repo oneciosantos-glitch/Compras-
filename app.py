@@ -110,6 +110,49 @@ ARQ_SEED_PY = r'''from database import get_session, init_db
 from models import Cliente, Material, GrupoCliente
 
 
+def _remover_clientes_ficticios(session):
+    """Remove clientes ficticios (FILIAL XX) que restaram de versoes anteriores."""
+    import re as _re
+    ficticios = []
+    for grupo in ["ASSAI", "ATACADAO", "MATEUS", "SELF FIT", "SMART FIT"]:
+        if grupo == "ASSAI":
+            for i in range(1, 21):
+                ficticios.append(f"{grupo} - FILIAL {i:02d}")
+        elif grupo == "ATACADAO":
+            for i in range(1, 21):
+                ficticios.append(f"{grupo} - FILIAL {i:02d}")
+        elif grupo == "MATEUS":
+            for i in range(1, 21):
+                ficticios.append(f"GRUPO MATEUS - FILIAL {i:02d}")
+                ficticios.append(f"MATEUS - FILIAL {i:02d}")
+                ficticios.append(f"CD MATEUS - FILIAL {i:02d}")
+        elif grupo == "SELF FIT":
+            for i in range(1, 21):
+                ficticios.append(f"{grupo} - FILIAL {i:02d}")
+                ficticios.append(f"SELFIT - FILIAL {i:02d}")
+        elif grupo == "SMART FIT":
+            for i in range(1, 21):
+                ficticios.append(f"{grupo} - FILIAL {i:02d}")
+                ficticios.append(f"SMARTFIT - FILIAL {i:02d}")
+    removidos = 0
+    for nome in ficticios:
+        cliente = session.query(Cliente).filter_by(nome=nome).first()
+        if cliente:
+            session.delete(cliente)
+            removidos += 1
+    # Tambem remove qualquer cliente cujo nome combine com padrao FILIAL XX
+    todos = session.query(Cliente).all()
+    padrao = _re.compile(r'.+- FILIAL \d+$', _re.IGNORECASE)
+    for c in todos:
+        if padrao.match(c.nome):
+            session.delete(c)
+            removidos += 1
+    if removidos > 0:
+        session.commit()
+        print(f"  - {removidos} cliente(s) ficticio(s) removido(s)")
+    return removidos
+
+
 def popular_dados():
     session = get_session()
     try:
@@ -128,6 +171,9 @@ def popular_dados():
             if not existe:
                 session.add(GrupoCliente(nome=nome))
         session.commit()
+
+        # --- REMOVER CLIENTES FICTICIOS DE VERSOES ANTERIORES ---
+        _remover_clientes_ficticios(session)
 
         # --- CLIENTES (lista conforme screenshots do sistema) ---
         clientes_lista = [
