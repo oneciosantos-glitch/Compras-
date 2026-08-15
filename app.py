@@ -1,6 +1,15 @@
 import os
 import datetime
 import streamlit as st
+from zoneinfo import ZoneInfo
+
+# Fuso horario de Sao Paulo (Brasilia)
+FUSO_BR = ZoneInfo("America/Sao_Paulo")
+
+
+def agora_brasil():
+    """Retorna datetime atual no fuso horario de Sao Paulo."""
+    return datetime.datetime.now(FUSO_BR).replace(tzinfo=None)
 from database import init_db, get_session
 from models import Compra, Cliente, Material, GrupoCliente
 
@@ -29,7 +38,7 @@ MESES = {
     "12": "Dezembro",
 }
 
-ANOS = [str(y) for y in range(2023, datetime.datetime.now().year + 2)]
+ANOS = [str(y) for y in range(2023, agora_brasil().year + 2)]
 
 COR_SITUACAO = {
     "Orcamento realizado": "#1e40af",
@@ -103,7 +112,7 @@ if "db_initialized" not in st.session_state:
 # ============================================================
 def gerar_orcamento_id():
     """Gera um ID unico para o orcamento no formato ORC-YYYYMMDDHHMMSS-XXXXXX."""
-    agora = datetime.datetime.now()
+    agora = agora_brasil()
     random_part = f"{os.urandom(3).hex()}"
     return f"ORC-{agora.strftime('%Y%m%d%H%M%S')}-{random_part}"
 
@@ -112,7 +121,7 @@ def salvar_arquivo(uploaded_file, prefixo):
     """Salva um arquivo enviado e retorna o caminho relativo."""
     if uploaded_file is None:
         return None
-    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    timestamp = agora_brasil().strftime("%Y%m%d%H%M%S")
     nome_seguro = uploaded_file.name.replace(" ", "_")
     nome_arquivo = f"{prefixo}_{timestamp}_{nome_seguro}"
     caminho = os.path.join(UPLOAD_DIR, nome_arquivo)
@@ -360,7 +369,7 @@ def pagina_orcamentos():
                             nova_sit = SITUACOES[idx_atual + 1]
                             for item in itens:
                                 item.situacao = nova_sit
-                                item.data_atualizacao = datetime.datetime.now()
+                                item.data_atualizacao = agora_brasil()
                             session.commit()
                             st.success(f"Situacao atualizada para: {nova_sit}")
                             st.rerun()
@@ -373,7 +382,7 @@ def pagina_orcamentos():
                             nova_sit = SITUACOES[idx_atual - 1]
                             for item in itens:
                                 item.situacao = nova_sit
-                                item.data_atualizacao = datetime.datetime.now()
+                                item.data_atualizacao = agora_brasil()
                             session.commit()
                             st.success(f"Situacao atualizada para: {nova_sit}")
                             st.rerun()
@@ -432,9 +441,9 @@ def pagina_novo_orcamento():
     # Periodo
     col_mes, col_ano = st.columns(2)
     with col_mes:
-        mes_selecionado = st.selectbox("Mes", list(MESES.keys()), format_func=lambda x: MESES[x], index=datetime.datetime.now().month - 1, key="novo_mes")
+        mes_selecionado = st.selectbox("Mes", list(MESES.keys()), format_func=lambda x: MESES[x], index=agora_brasil().month - 1, key="novo_mes")
     with col_ano:
-        ano_selecionado = st.selectbox("Ano", ANOS, index=ANOS.index(str(datetime.datetime.now().year)) if str(datetime.datetime.now().year) in ANOS else 0, key="novo_ano")
+        ano_selecionado = st.selectbox("Ano", ANOS, index=ANOS.index(str(agora_brasil().year)) if str(agora_brasil().year) in ANOS else 0, key="novo_ano")
 
     # Observacao geral
     observacao_geral = st.text_area("Observacao (opcional)", key="novo_obs_geral")
@@ -541,7 +550,7 @@ def pagina_novo_orcamento():
             session = get_session()
             try:
                 orc_id = gerar_orcamento_id()
-                agora = datetime.datetime.now()
+                agora = agora_brasil()
 
                 # Salvar arquivos
                 arq_orc_nome = salvar_arquivo(arquivo_orc, "orc") if arquivo_orc else None
@@ -726,7 +735,7 @@ def pagina_editar_orcamento():
         with col_save:
             if st.button("💾 Salvar Alteracoes", type="primary", use_container_width=True, key=f"save_edit_{orc_id}"):
                 try:
-                    agora = datetime.datetime.now()
+                    agora = agora_brasil()
 
                     # Salvar arquivos
                     arq_orc_nome = salvar_arquivo(arq_orc, "orc") if arq_orc else primeiro.arquivo_orcamento
@@ -926,7 +935,7 @@ def pagina_imprimir_orcamento():
             {anexos_html}
 
             <div class="footer">
-                <p>Documento gerado em {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</p>
+                <p>Documento gerado em {agora_brasil().strftime('%d/%m/%Y %H:%M:%S')}</p>
             </div>
 
             <div class="no-print" style="text-align:center;margin-top:20px;">
@@ -1279,7 +1288,7 @@ def pagina_editar_item():
                         item.mes = novo_mes
                         item.ano = novo_ano
                         item.observacao = nova_obs
-                        item.data_atualizacao = datetime.datetime.now()
+                        item.data_atualizacao = agora_brasil()
 
                         if arq_orc:
                             item.arquivo_orcamento = salvar_arquivo(arq_orc, "orc")
