@@ -587,7 +587,6 @@ FUSO_BR = ZoneInfo("America/Sao_Paulo")
 def agora_brasil():
     """Retorna datetime atual no fuso horario de Sao Paulo."""
     return datetime.datetime.now(FUSO_BR).replace(tzinfo=None)
-
 from database import init_db, get_session
 from models import Compra, Cliente, Material, GrupoCliente
 
@@ -634,7 +633,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 # ============================================================
 st.set_page_config(
     page_title="Sistema de Controle de Compras",
-    page_icon="\U0001f6d2",
+    page_icon="🛒",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -748,7 +747,7 @@ def formatar_moeda(valor):
 # PAGINA: DASHBOARD (HOME)
 # ============================================================
 def pagina_dashboard():
-    st.title("\U0001f4ca Painel de Controle")
+    st.title("📊 Painel de Controle")
     st.markdown("---")
 
     session = get_session()
@@ -775,13 +774,13 @@ def pagina_dashboard():
         # Colunas de metricas
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.metric("\U0001f4cb Total de Pedidos", orcamentos_unicos)
+            st.metric("📋 Total de Pedidos", orcamentos_unicos)
         with col2:
-            st.metric("\U0001f4e6 Total de Itens", total_itens)
+            st.metric("📦 Total de Itens", total_itens)
         with col3:
-            st.metric("\U0001f4b0 Valor Total", formatar_moeda(valor_total))
+            st.metric("💰 Valor Total", formatar_moeda(valor_total))
         with col4:
-            st.metric("\u2705 Pedidos Entregues", sit_counts.get("Entregue", 0))
+            st.metric("✅ Pedidos Entregues", sit_counts.get("Entregue", 0))
 
         st.markdown("---")
 
@@ -790,28 +789,28 @@ def pagina_dashboard():
         with col_s1:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#1e40af; margin:0;">\U0001f4cb Pedidos: Orcamento Realizado</h4>
+                <h4 style="color:#1e40af; margin:0;">📋 Pedidos: Orcamento Realizado</h4>
                 <h2 style="color:#1e40af; margin:5px 0;">{sit_counts.get('Orcamento realizado', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_s2:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#ca8a04; margin:0;">\U0001f4e7 Pedidos: Enviado ao Financeiro</h4>
+                <h4 style="color:#ca8a04; margin:0;">📧 Pedidos: Enviado ao Financeiro</h4>
                 <h2 style="color:#ca8a04; margin:5px 0;">{sit_counts.get('Enviado ao financeiro', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_s3:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#16a34a; margin:0;">\U0001f4b0 Pedidos: Pagos</h4>
+                <h4 style="color:#16a34a; margin:0;">💰 Pedidos: Pagos</h4>
                 <h2 style="color:#16a34a; margin:5px 0;">{sit_counts.get('Pago', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
         with col_s4:
             st.markdown(f"""
             <div class="metric-card">
-                <h4 style="color:#0891b2; margin:0;">\U0001f69a Pedidos: Entregues</h4>
+                <h4 style="color:#0891b2; margin:0;">🚚 Pedidos: Entregues</h4>
                 <h2 style="color:#0891b2; margin:5px 0;">{sit_counts.get('Entregue', 0)}</h2>
             </div>
             """, unsafe_allow_html=True)
@@ -819,7 +818,7 @@ def pagina_dashboard():
         st.markdown("---")
 
         # Top 10 clientes por valor
-        st.subheader("\U0001f3c6 Top 10 Clientes por Valor")
+        st.subheader("🏆 Top 10 Clientes por Valor")
         top_clientes = session.query(
             Compra.cliente,
             func.sum(Compra.valor_total).label("total")
@@ -831,7 +830,7 @@ def pagina_dashboard():
 
         if top_clientes:
             for i, (cliente, total) in enumerate(top_clientes, 1):
-                st.markdown(f"**{i}.** {cliente} \u2014 {formatar_moeda(total)}")
+                st.markdown(f"**{i}.** {cliente} — {formatar_moeda(total)}")
         else:
             st.info("Nenhum orcamento registrado ainda.")
 
@@ -843,7 +842,7 @@ def pagina_dashboard():
 # PAGINA: LISTAR ORCAMENTOS
 # ============================================================
 def pagina_orcamentos():
-    st.title("\U0001f4cb Orcamentos")
+    st.title("📋 Orcamentos")
 
     session = get_session()
     try:
@@ -892,7 +891,7 @@ def pagina_orcamentos():
             badge = badge_situacao_html(primeiro.situacao)
 
             with st.expander(
-                f"{orc_id} \u2014 {primeiro.cliente} \u2014 {MESES.get(primeiro.mes, primeiro.mes)}/{primeiro.ano}"
+                f"{orc_id} — {primeiro.cliente} — {MESES.get(primeiro.mes, primeiro.mes)}/{primeiro.ano}"
             ):
                 col_info1, col_info2, col_info3 = st.columns(3)
                 with col_info1:
@@ -922,26 +921,26 @@ def pagina_orcamentos():
                 # Anexos
                 anexos = []
                 if primeiro.arquivo_orcamento:
-                    anexos.append(f"\U0001f4ce Orcamento: {primeiro.arquivo_orcamento}")
+                    anexos.append(f"📎 Orcamento: {primeiro.arquivo_orcamento}")
                 if primeiro.arquivo_comprovante:
-                    anexos.append(f"\U0001f4ce Comprovante: {primeiro.arquivo_comprovante}")
+                    anexos.append(f"📎 Comprovante: {primeiro.arquivo_comprovante}")
                 if anexos:
                     st.markdown("\n".join(anexos))
 
                 # Botoes
                 col_b1, col_b2, col_b3, col_b4, col_b5 = st.columns(5)
                 with col_b1:
-                    if st.button("\u270f\ufe0f Editar", key=f"edit_{orc_id}"):
+                    if st.button("✏️ Editar", key=f"edit_{orc_id}"):
                         st.session_state["editar_orcamento_id"] = orc_id
                         st.session_state["pagina_atual"] = "Editar Orcamento"
                         st.rerun()
                 with col_b2:
-                    if st.button("\U0001f5a8\ufe0f Imprimir", key=f"print_{orc_id}"):
+                    if st.button("🖨️ Imprimir", key=f"print_{orc_id}"):
                         st.session_state["imprimir_orcamento_id"] = orc_id
                         st.session_state["pagina_atual"] = "Imprimir"
                         st.rerun()
                 with col_b3:
-                    if st.button("\U0001f504 Avancar Situacao", key=f"avancar_{orc_id}"):
+                    if st.button("🔄 Avancar Situacao", key=f"avancar_{orc_id}"):
                         idx_atual = SITUACOES.index(primeiro.situacao) if primeiro.situacao in SITUACOES else -1
                         if idx_atual < len(SITUACOES) - 1:
                             nova_sit = SITUACOES[idx_atual + 1]
@@ -954,7 +953,7 @@ def pagina_orcamentos():
                         else:
                             st.warning("Orcamento ja esta na situacao final.")
                 with col_b4:
-                    if st.button("\u23ea Voltar Situacao", key=f"voltar_{orc_id}"):
+                    if st.button("⏪ Voltar Situacao", key=f"voltar_{orc_id}"):
                         idx_atual = SITUACOES.index(primeiro.situacao) if primeiro.situacao in SITUACOES else -1
                         if idx_atual > 0:
                             nova_sit = SITUACOES[idx_atual - 1]
@@ -967,16 +966,16 @@ def pagina_orcamentos():
                         else:
                             st.warning("Orcamento ja esta na situacao inicial.")
                 with col_b5:
-                    if st.button("\U0001f5d1\ufe0f Excluir", key=f"delete_{orc_id}"):
+                    if st.button("🗑️ Excluir", key=f"delete_{orc_id}"):
                         st.session_state[f"confirmar_excluir_{orc_id}"] = True
                         st.rerun()
 
                 # Confirmacao de exclusao
                 if st.session_state.get(f"confirmar_excluir_{orc_id}", False):
-                    st.warning(f"\u26a0\ufe0f Tem certeza que deseja excluir o orcamento {orc_id}? Esta acao nao pode ser desfeita!")
+                    st.warning(f"⚠️ Tem certeza que deseja excluir o orcamento {orc_id}? Esta acao nao pode ser desfeita!")
                     col_conf1, col_conf2 = st.columns(2)
                     with col_conf1:
-                        if st.button("\u2705 Sim, Excluir", key=f"confirm_yes_{orc_id}"):
+                        if st.button("✅ Sim, Excluir", key=f"confirm_yes_{orc_id}"):
                             for item in itens:
                                 session.delete(item)
                             session.commit()
@@ -984,7 +983,7 @@ def pagina_orcamentos():
                             st.session_state[f"confirmar_excluir_{orc_id}"] = False
                             st.rerun()
                     with col_conf2:
-                        if st.button("\u274c Cancelar", key=f"confirm_no_{orc_id}"):
+                        if st.button("❌ Cancelar", key=f"confirm_no_{orc_id}"):
                             st.session_state[f"confirmar_excluir_{orc_id}"] = False
                             st.rerun()
 
@@ -996,7 +995,7 @@ def pagina_orcamentos():
 # PAGINA: NOVO ORCAMENTO
 # ============================================================
 def pagina_novo_orcamento():
-    st.title("\u2795 Novo Orcamento")
+    st.title("➕ Novo Orcamento")
 
     # Inicializar session_state para itens
     if "novos_itens" not in st.session_state:
@@ -1010,7 +1009,7 @@ def pagina_novo_orcamento():
     clientes_nomes = [c.nome for c in clientes]
 
     # Selecionar cliente
-    cliente_selecionado = st.selectbox("\U0001f3e2 Selecione o Cliente", [""] + clientes_nomes, key="novo_cliente")
+    cliente_selecionado = st.selectbox("🏢 Selecione o Cliente", [""] + clientes_nomes, key="novo_cliente")
 
     if not cliente_selecionado:
         st.info("Selecione um cliente para comecar.")
@@ -1027,7 +1026,7 @@ def pagina_novo_orcamento():
     observacao_geral = st.text_area("Observacao (opcional)", key="novo_obs_geral")
 
     st.markdown("---")
-    st.subheader("\U0001f4e6 Itens do Orcamento")
+    st.subheader("📦 Itens do Orcamento")
 
     # Tipo de material
     tipo_material = st.radio("Tipo de Material", ["material", "epi"], format_func=lambda x: "Material de Limpeza" if x == "material" else "EPI", key="novo_tipo_mat", horizontal=True)
@@ -1048,7 +1047,7 @@ def pagina_novo_orcamento():
     # Selectbox com grupos como optgroups
     opcoes_materiais = []
     for grupo, nomes in materiais_por_grupo.items():
-        opcoes_materiais.append(f"\u2500\u2500 {grupo} \u2500\u2500")
+        opcoes_materiais.append(f"── {grupo} ──")
         for nome in nomes:
             opcoes_materiais.append(nome)
 
@@ -1061,9 +1060,9 @@ def pagina_novo_orcamento():
         valor_unit = st.number_input("Valor Unit. (R$)", min_value=0.0, value=0.0, step=0.01, format="%0.2f", key="novo_valor_unit")
     with col_btn:
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("\u2795 Adicionar Item", key="btn_add_item"):
+        if st.button("➕ Adicionar Item", key="btn_add_item"):
             # Validar que o material selecionado nao e um cabecalho de grupo
-            if material_sel and not material_sel.startswith("\u2500\u2500"):
+            if material_sel and not material_sel.startswith("──"):
                 item = {
                     "material": material_sel,
                     "quantidade": qtd,
@@ -1080,7 +1079,7 @@ def pagina_novo_orcamento():
     # Lista de itens adicionados
     if st.session_state["novos_itens"]:
         st.markdown("---")
-        st.subheader(f"\U0001f4cb Itens Adicionados ({len(st.session_state['novos_itens'])})")
+        st.subheader(f"📋 Itens Adicionados ({len(st.session_state['novos_itens'])})")
 
         itens_para_remover = []
 
@@ -1091,46 +1090,49 @@ def pagina_novo_orcamento():
             with col_i2:
                 st.text(f"Qtd: {item['quantidade']}")
             with col_i3:
-                st.text(f"Unit: {formatar_moeda(item['valor_unitario'])}")
+                st.text(formatar_moeda(item["valor_unitario"]))
             with col_i4:
-                st.text(f"Total: {formatar_moeda(item['valor_total'])}")
+                st.text(formatar_moeda(item["valor_total"]))
             with col_i5:
-                item_obs = st.text_input("Obs", value=item.get("observacao", ""), key=f"item_obs_{idx}", label_visibility="collapsed")
-                st.session_state["novos_itens"][idx]["observacao"] = item_obs
+                obs_key = f"item_obs_{idx}"
+                obs_val = st.text_input("Obs.", value=item.get("observacao", ""), key=obs_key, label_visibility="collapsed")
+                item["observacao"] = obs_val
             with col_i6:
-                if st.button("\U0001f5d1", key=f"remover_item_{idx}"):
+                if st.button("🗑", key=f"remove_item_{idx}"):
                     itens_para_remover.append(idx)
 
-        # Remover itens marcados
+        # Remover itens (fora do loop para nao alterar indices durante iteracao)
         if itens_para_remover:
             for idx in sorted(itens_para_remover, reverse=True):
                 st.session_state["novos_itens"].pop(idx)
             st.rerun()
 
-        # Valor total do orcamento
-        valor_total_orc = sum(i["valor_total"] for i in st.session_state["novos_itens"])
-        st.markdown(f"### Valor Total do Orcamento: {formatar_moeda(valor_total_orc)}")
+        # Total geral
+        total_geral = sum(i["valor_total"] for i in st.session_state["novos_itens"])
+        st.markdown(f"### 💰 Total do Orcamento: {formatar_moeda(total_geral)}")
 
-        # Uploads
-        st.markdown("---")
-        col_up1, col_up2 = st.columns(2)
-        with col_up1:
-            arq_orc = st.file_uploader("Arquivo Orcamento", type=["pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"], key="novo_arq_orc")
-        with col_up2:
-            arq_comp = st.file_uploader("Comprovante", type=["pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"], key="novo_arq_comp")
+    # Upload de arquivos
+    st.markdown("---")
+    st.subheader("📎 Anexos")
+    col_up1, col_up2 = st.columns(2)
+    with col_up1:
+        arquivo_orc = st.file_uploader("Arquivo do Orcamento", type=["pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"], key="novo_arq_orc")
+    with col_up2:
+        arquivo_comp = st.file_uploader("Comprovante", type=["pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"], key="novo_arq_comp")
 
-        # Botao salvar
-        st.markdown("---")
-        if st.button("\U0001f4be Salvar Orcamento", type="primary", key="btn_salvar_orc"):
-            if not st.session_state["novos_itens"]:
-                st.error("Adicione pelo menos um item!")
-                return
-
-            orc_id = gerar_orcamento_id()
-            agora = agora_brasil()
-
+    # Botao salvar
+    st.markdown("---")
+    if st.session_state["novos_itens"]:
+        if st.button("💾 Salvar Orcamento", type="primary", use_container_width=True):
             session = get_session()
             try:
+                orc_id = gerar_orcamento_id()
+                agora = agora_brasil()
+
+                # Salvar arquivos
+                arq_orc_nome = salvar_arquivo(arquivo_orc, "orc") if arquivo_orc else None
+                arq_comp_nome = salvar_arquivo(arquivo_comp, "comp") if arquivo_comp else None
+
                 for item in st.session_state["novos_itens"]:
                     compra = Compra(
                         orcamento_id=orc_id,
@@ -1143,79 +1145,244 @@ def pagina_novo_orcamento():
                         mes=mes_selecionado,
                         ano=ano_selecionado,
                         observacao=item.get("observacao", "") or observacao_geral,
-                        arquivo_orcamento=salvar_arquivo(arq_orc, "orc") if arq_orc else None,
-                        arquivo_comprovante=salvar_arquivo(arq_comp, "comp") if arq_comp else None,
+                        arquivo_orcamento=arq_orc_nome,
+                        arquivo_comprovante=arq_comp_nome,
                         data_criacao=agora,
                         data_atualizacao=agora,
                     )
                     session.add(compra)
+
                 session.commit()
-                st.success(f"\u2705 Orcamento {orc_id} salvo com sucesso!")
+                st.success(f"✅ Orcamento {orc_id} salvo com sucesso!")
+
+                # Limpar itens
                 st.session_state["novos_itens"] = []
                 st.rerun()
+
             except Exception as e:
                 session.rollback()
-                st.error(f"Erro ao salvar: {e}")
+                st.error(f"Erro ao salvar orcamento: {e}")
             finally:
                 session.close()
+    else:
+        st.info("Adicione pelo menos um item para salvar o orcamento.")
 
 
 # ============================================================
 # PAGINA: EDITAR ORCAMENTO
 # ============================================================
 def pagina_editar_orcamento():
-    st.title("\u270f\ufe0f Editar Orcamento")
+    st.title("✏️ Editar Orcamento")
 
     orc_id = st.session_state.get("editar_orcamento_id")
     if not orc_id:
-        st.warning("Nenhum orcamento selecionado. Va para a pagina de Orcamentos e clique em Editar.")
+        st.warning("Nenhum orcamento selecionado para edicao. Volte a lista de orcamentos e clique em Editar.")
+        if st.button("📋 Ir para Orcamentos"):
+            st.session_state["pagina_atual"] = "Orcamentos"
+            st.rerun()
         return
 
     session = get_session()
     try:
-        itens = session.query(Compra).filter_by(orcamento_id=orc_id).all()
+        itens = session.query(Compra).filter_by(orcamento_id=orc_id).order_by(Compra.id).all()
         if not itens:
             st.error("Orcamento nao encontrado.")
             return
 
         primeiro = itens[0]
-        st.subheader(f"Orcamento: {orc_id}")
-        st.markdown(f"**Cliente:** {primeiro.cliente} | **Situacao:** {primeiro.situacao}")
+
+        # Inicializar edicao no session_state
+        edit_key = f"edit_itens_{orc_id}"
+        if edit_key not in st.session_state:
+            st.session_state[edit_key] = []
+            for i in itens:
+                st.session_state[edit_key].append({
+                    "id": i.id,
+                    "material": i.material,
+                    "quantidade": i.quantidade,
+                    "valor_unitario": i.valor_unitario,
+                    "valor_total": i.valor_total,
+                    "situacao": i.situacao,
+                    "observacao": i.observacao or "",
+                    "remover": False,
+                })
+
+        edit_itens = st.session_state[edit_key]
+
+        # Info do orcamento
+        st.markdown(f"**Orcamento:** {orc_id}")
+        st.markdown(f"**Cliente:** {primeiro.cliente}")
+        st.markdown(f"**Periodo:** {MESES.get(primeiro.mes, primeiro.mes)}/{primeiro.ano}")
+
+        # Alterar situacao de todo o orcamento
+        nova_sit = st.selectbox("Situacao do Orcamento", SITUACOES,
+                                index=SITUACOES.index(primeiro.situacao) if primeiro.situacao in SITUACOES else 0,
+                                key=f"edit_sit_{orc_id}")
+
         st.markdown("---")
+        st.subheader("📦 Itens")
 
         # Editar cada item
-        for idx, item in enumerate(itens):
-            with st.expander(f"{item.material} - Qtd: {item.quantidade}"):
-                col_e1, col_e2 = st.columns(2)
-                with col_e1:
-                    nova_qtd = st.number_input(f"Quantidade", value=int(item.quantidade), min_value=1, step=1, key=f"edit_qtd_{item.id}")
-                    novo_val_unit = st.number_input(f"Valor Unit. (R$)", value=item.valor_unitario, min_value=0.0, step=0.01, format="%0.2f", key=f"edit_vunit_{item.id}")
-                with col_e2:
-                    novo_val_total = round(nova_qtd * novo_val_unit, 2)
-                    st.text(f"Valor Total: {formatar_moeda(novo_val_total)}")
-                    nova_obs = st.text_area(f"Observacao", value=item.observacao or "", key=f"edit_obs_{item.id}")
+        for idx, item in enumerate(edit_itens):
+            if item.get("remover"):
+                continue
 
-                if st.button(f"\U0001f4be Salvar Item", key=f"save_item_{item.id}"):
-                    item.quantidade = nova_qtd
-                    item.valor_unitario = novo_val_unit
-                    item.valor_total = novo_val_total
-                    item.observacao = nova_obs
-                    item.data_atualizacao = agora_brasil()
+            with st.container():
+                col_e1, col_e2, col_e3, col_e4, col_e5, col_e6 = st.columns([3, 1, 1, 1, 1, 0.5])
+                with col_e1:
+                    st.text(item["material"])
+                with col_e2:
+                    nova_qtd = st.number_input("Qtd", value=item["quantidade"], min_value=1, step=1, key=f"edit_qtd_{idx}_{orc_id}")
+                    item["quantidade"] = nova_qtd
+                with col_e3:
+                    novo_val = st.number_input("Val.Unit", value=item["valor_unitario"], min_value=0.0, step=0.01, format="%0.2f", key=f"edit_val_{idx}_{orc_id}")
+                    item["valor_unitario"] = novo_val
+                with col_e4:
+                    item["valor_total"] = round(nova_qtd * novo_val, 2)
+                    st.text(formatar_moeda(item["valor_total"]))
+                with col_e5:
+                    nova_obs = st.text_input("Obs", value=item.get("observacao", ""), key=f"edit_obs_{idx}_{orc_id}", label_visibility="collapsed")
+                    item["observacao"] = nova_obs
+                with col_e6:
+                    if st.button("🗑", key=f"edit_remove_{idx}_{orc_id}"):
+                        item["remover"] = True
+                        st.rerun()
+
+        # Adicionar novo item ao orcamento existente
+        st.markdown("---")
+        st.subheader("➕ Adicionar Novo Item")
+
+        tipo_add = st.radio("Tipo", ["material", "epi"], format_func=lambda x: "Material de Limpeza" if x == "material" else "EPI", key=f"add_tipo_{orc_id}", horizontal=True)
+        mats_add = obter_materiais_ativos(tipo=tipo_add)
+
+        if mats_add:
+            mats_por_grupo = {}
+            for m in mats_add:
+                if m.grupo not in mats_por_grupo:
+                    mats_por_grupo[m.grupo] = []
+                mats_por_grupo[m.grupo].append(m.nome)
+
+            opcoes = []
+            for grupo, nomes in mats_por_grupo.items():
+                opcoes.append(f"── {grupo} ──")
+                for nome in nomes:
+                    opcoes.append(nome)
+
+            col_a1, col_a2, col_a3, col_a4 = st.columns([3, 1, 1, 1])
+            with col_a1:
+                mat_add = st.selectbox("Material", [""] + opcoes, key=f"add_mat_{orc_id}")
+            with col_a2:
+                qtd_add = st.number_input("Qtd", min_value=1, value=1, step=1, key=f"add_qtd_{orc_id}")
+            with col_a3:
+                val_add = st.number_input("Valor Unit.", min_value=0.0, value=0.0, step=0.01, format="%0.2f", key=f"add_val_{orc_id}")
+            with col_a4:
+                st.markdown("<br>", unsafe_allow_html=True)
+                if st.button("➕ Adicionar", key=f"btn_add_exist_{orc_id}"):
+                    if mat_add and not mat_add.startswith("──"):
+                        edit_itens.append({
+                            "id": None,  # novo item
+                            "material": mat_add,
+                            "quantidade": qtd_add,
+                            "valor_unitario": val_add,
+                            "valor_total": round(qtd_add * val_add, 2),
+                            "situacao": nova_sit,
+                            "observacao": "",
+                            "remover": False,
+                        })
+                        st.success(f"Item adicionado: {mat_add}")
+                        st.rerun()
+                    else:
+                        st.error("Selecione um material valido.")
+
+        # Total
+        total = sum(i["valor_total"] for i in edit_itens if not i.get("remover"))
+        st.markdown(f"### 💰 Total: {formatar_moeda(total)}")
+
+        # Upload de novos arquivos
+        st.markdown("---")
+        col_up1, col_up2 = st.columns(2)
+        with col_up1:
+            arq_orc = st.file_uploader("Novo Arquivo Orcamento", type=["pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"], key=f"edit_arq_orc_{orc_id}")
+        with col_up2:
+            arq_comp = st.file_uploader("Novo Comprovante", type=["pdf", "png", "jpg", "jpeg", "doc", "docx", "xls", "xlsx"], key=f"edit_arq_comp_{orc_id}")
+
+        # Salvar alteracoes
+        st.markdown("---")
+        col_save, col_cancel = st.columns(2)
+        with col_save:
+            if st.button("💾 Salvar Alteracoes", type="primary", use_container_width=True, key=f"save_edit_{orc_id}"):
+                try:
+                    agora = agora_brasil()
+
+                    # Salvar arquivos
+                    arq_orc_nome = salvar_arquivo(arq_orc, "orc") if arq_orc else primeiro.arquivo_orcamento
+                    arq_comp_nome = salvar_arquivo(arq_comp, "comp") if arq_comp else primeiro.arquivo_comprovante
+
+                    # Atualizar itens existentes e criar novos
+                    ids_restantes = []
+                    for item_data in edit_itens:
+                        if item_data.get("remover"):
+                            # Excluir item
+                            if item_data["id"]:
+                                item_db = session.query(Compra).get(item_data["id"])
+                                if item_db:
+                                    session.delete(item_db)
+                            continue
+
+                        if item_data["id"]:
+                            # Atualizar existente
+                            item_db = session.query(Compra).get(item_data["id"])
+                            if item_db:
+                                item_db.quantidade = item_data["quantidade"]
+                                item_db.valor_unitario = item_data["valor_unitario"]
+                                item_db.valor_total = item_data["valor_total"]
+                                item_db.situacao = nova_sit
+                                item_db.observacao = item_data["observacao"]
+                                item_db.arquivo_orcamento = arq_orc_nome
+                                item_db.arquivo_comprovante = arq_comp_nome
+                                item_db.data_atualizacao = agora
+                                ids_restantes.append(item_data["id"])
+                        else:
+                            # Criar novo
+                            nova_compra = Compra(
+                                orcamento_id=orc_id,
+                                cliente=primeiro.cliente,
+                                material=item_data["material"],
+                                quantidade=item_data["quantidade"],
+                                valor_unitario=item_data["valor_unitario"],
+                                valor_total=item_data["valor_total"],
+                                situacao=nova_sit,
+                                mes=primeiro.mes,
+                                ano=primeiro.ano,
+                                observacao=item_data["observacao"],
+                                arquivo_orcamento=arq_orc_nome,
+                                arquivo_comprovante=arq_comp_nome,
+                                data_criacao=agora,
+                                data_atualizacao=agora,
+                            )
+                            session.add(nova_compra)
+
                     session.commit()
-                    st.success("Item atualizado!")
+                    st.success("✅ Orcamento atualizado com sucesso!")
+
+                    # Limpar session state de edicao
+                    if edit_key in st.session_state:
+                        del st.session_state[edit_key]
+                    st.session_state["editar_orcamento_id"] = None
+                    st.session_state["pagina_atual"] = "Orcamentos"
                     st.rerun()
 
-        # Alterar situacao geral
-        st.markdown("---")
-        st.subheader("Alterar Situacao")
-        nova_sit = st.selectbox("Nova Situacao", SITUACOES, index=SITUACOES.index(primeiro.situacao) if primeiro.situacao in SITUACOES else 0, key="edit_sit_geral")
-        if st.button("\U0001f4be Alterar Situacao", key="btn_alt_sit"):
-            for item in itens:
-                item.situacao = nova_sit
-                item.data_atualizacao = agora_brasil()
-            session.commit()
-            st.success("Situacao atualizada!")
-            st.rerun()
+                except Exception as e:
+                    session.rollback()
+                    st.error(f"Erro ao salvar: {e}")
+
+        with col_cancel:
+            if st.button("❌ Cancelar", use_container_width=True, key=f"cancel_edit_{orc_id}"):
+                if edit_key in st.session_state:
+                    del st.session_state[edit_key]
+                st.session_state["editar_orcamento_id"] = None
+                st.session_state["pagina_atual"] = "Orcamentos"
+                st.rerun()
 
     finally:
         session.close()
@@ -1225,63 +1392,152 @@ def pagina_editar_orcamento():
 # PAGINA: IMPRIMIR ORCAMENTO
 # ============================================================
 def pagina_imprimir_orcamento():
-    st.title("\U0001f5a8\ufe0f Imprimir Orcamento")
+    st.title("🖨️ Imprimir Orcamento")
 
     orc_id = st.session_state.get("imprimir_orcamento_id")
     if not orc_id:
-        st.warning("Nenhum orcamento selecionado. Va para a pagina de Orcamentos e clique em Imprimir.")
+        # Selecionar orcamento manualmente
+        session = get_session()
+        try:
+            orc_ids = session.query(Compra.orcamento_id).filter(
+                Compra.orcamento_id.isnot(None)
+            ).distinct().order_by(Compra.orcamento_id.desc()).all()
+            orc_ids = [o[0] for o in orc_ids]
+            if not orc_ids:
+                st.info("Nenhum orcamento cadastrado.")
+                return
+            orc_id = st.selectbox("Selecione o Orcamento", orc_ids, key="imprimir_sel")
+        finally:
+            session.close()
+
+    if not orc_id:
         return
 
     session = get_session()
     try:
-        itens = session.query(Compra).filter_by(orcamento_id=orc_id).all()
+        itens = session.query(Compra).filter_by(orcamento_id=orc_id).order_by(Compra.id).all()
         if not itens:
             st.error("Orcamento nao encontrado.")
             return
 
         primeiro = itens[0]
         valor_total = sum(i.valor_total for i in itens)
+        cor_sit = COR_SITUACAO.get(primeiro.situacao, "#6b7280")
 
-        # Cabecalho
-        st.markdown(f"""
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h1>\U0001f6d2 ORCAMENTO</h1>
-            <h3>{orc_id}</h3>
-            <p><strong>Cliente:</strong> {primeiro.cliente}</p>
-            <p><strong>Periodo:</strong> {MESES.get(primeiro.mes, primeiro.mes)}/{primeiro.ano}</p>
-            <p><strong>Situacao:</strong> {primeiro.situacao}</p>
-            <p><strong>Data:</strong> {primeiro.data_criacao.strftime('%d/%m/%Y %H:%M') if primeiro.data_criacao else '-'}</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # Gerar HTML para impressao
+        linhas_tabela = ""
+        for idx, i in enumerate(itens, 1):
+            linhas_tabela += f"""
+            <tr>
+                <td style="padding:8px;border:1px solid #ddd;text-align:center;">{idx}</td>
+                <td style="padding:8px;border:1px solid #ddd;">{i.material}</td>
+                <td style="padding:8px;border:1px solid #ddd;text-align:center;">{i.quantidade:.0f}</td>
+                <td style="padding:8px;border:1px solid #ddd;text-align:right;">R$ {i.valor_unitario:,.2f}</td>
+                <td style="padding:8px;border:1px solid #ddd;text-align:right;">R$ {i.valor_total:,.2f}</td>
+                <td style="padding:8px;border:1px solid #ddd;text-align:center;font-size:0.8em;">{i.observacao or ''}</td>
+            </tr>"""
 
-        # Tabela
-        dados_print = []
-        for i, item in enumerate(itens, 1):
-            dados_print.append({
-                "#": i,
-                "Material": item.material,
-                "Qtd": item.quantidade,
-                "Valor Unit.": formatar_moeda(item.valor_unitario),
-                "Valor Total": formatar_moeda(item.valor_total),
-                "Obs.": item.observacao or "",
-            })
-        st.dataframe(dados_print, use_container_width=True, hide_index=True)
+        anexos_html = ""
+        if primeiro.arquivo_orcamento:
+            anexos_html += f'<p>📎 Arquivo Orcamento: {primeiro.arquivo_orcamento}</p>'
+        if primeiro.arquivo_comprovante:
+            anexos_html += f'<p>📎 Comprovante: {primeiro.arquivo_comprovante}</p>'
 
-        # Total
-        st.markdown(f"""
-        <div style="text-align: right; margin-top: 20px;">
-            <h2>Valor Total: {formatar_moeda(valor_total)}</h2>
-        </div>
-        """, unsafe_allow_html=True)
+        html_impressao = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Orcamento {orc_id}</title>
+            <style>
+                @media print {{
+                    .no-print {{ display: none; }}
+                    body {{ margin: 0; }}
+                }}
+                body {{ font-family: 'Segoe UI', Arial, sans-serif; margin: 30px; color: #333; }}
+                .header {{ text-align: center; margin-bottom: 20px; }}
+                .header h1 {{ color: #1e40af; margin: 0; }}
+                .header p {{ color: #666; margin: 5px 0; }}
+                .info-box {{ background: #f8f9fa; border-radius: 8px; padding: 15px; margin: 15px 0; display: flex; justify-content: space-between; }}
+                .info-box div {{ flex: 1; }}
+                table {{ width: 100%; border-collapse: collapse; margin: 15px 0; }}
+                th {{ background: #1e40af; color: white; padding: 10px; text-align: center; }}
+                .total-row {{ background: #e8f0fe; font-weight: bold; }}
+                .badge {{ display: inline-block; padding: 4px 12px; border-radius: 20px; color: white; font-size: 0.9em; background-color: {cor_sit}; }}
+                .footer {{ margin-top: 30px; text-align: center; color: #999; font-size: 0.8em; }}
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>🛒 Sistema de Controle de Compras</h1>
+                <p>Orcamento</p>
+            </div>
 
-        # Botao imprimir do navegador
-        st.markdown("---")
-        st.markdown("""
-        <script>
-            // Adiciona botao de impressao
-        </script>
-        <p>Clique Ctrl+P no teclado para imprimir esta pagina.</p>
-        """, unsafe_allow_html=True)
+            <div class="info-box">
+                <div>
+                    <strong>Cliente:</strong> {primeiro.cliente}<br>
+                    <strong>Situacao:</strong> <span class="badge">{primeiro.situacao}</span>
+                </div>
+                <div>
+                    <strong>Periodo:</strong> {MESES.get(primeiro.mes, primeiro.mes)}/{primeiro.ano}<br>
+                    <strong>Data:</strong> {primeiro.data_criacao.strftime('%d/%m/%Y %H:%M') if primeiro.data_criacao else '-'}
+                </div>
+                <div>
+                    <strong>ID:</strong> {orc_id}<br>
+                    <strong>Itens:</strong> {len(itens)}
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Material</th>
+                        <th>Qtd</th>
+                        <th>Valor Unit.</th>
+                        <th>Valor Total</th>
+                        <th>Obs.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {linhas_tabela}
+                    <tr class="total-row">
+                        <td colspan="4" style="padding:10px;border:1px solid #ddd;text-align:right;"><strong>TOTAL</strong></td>
+                        <td style="padding:10px;border:1px solid #ddd;text-align:right;"><strong>R$ {valor_total:,.2f}</strong></td>
+                        <td style="padding:10px;border:1px solid #ddd;"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {anexos_html}
+
+            <div class="footer">
+                <p>Documento gerado em {agora_brasil().strftime('%d/%m/%Y %H:%M:%S')}</p>
+            </div>
+
+            <div class="no-print" style="text-align:center;margin-top:20px;">
+                <button onclick="window.print()" style="background:#1e40af;color:white;border:none;padding:12px 30px;border-radius:6px;font-size:16px;cursor:pointer;">
+                    🖨️ Imprimir
+                </button>
+            </div>
+        </body>
+        </html>
+        """
+
+        st.components.v1.html(html_impressao, height=800, scrolling=True)
+
+        # Botao para baixar HTML
+        st.download_button(
+            "📥 Baixar HTML para Impressao",
+            data=html_impressao,
+            file_name=f"orcamento_{orc_id}.html",
+            mime="text/html",
+        )
+
+        if st.button("🔙 Voltar para Orcamentos"):
+            st.session_state["imprimir_orcamento_id"] = None
+            st.session_state["pagina_atual"] = "Orcamentos"
+            st.rerun()
 
     finally:
         session.close()
@@ -1291,23 +1547,21 @@ def pagina_imprimir_orcamento():
 # PAGINA: CADASTROS
 # ============================================================
 def pagina_cadastros():
-    st.title("\U0001f4d3 Cadastros")
+    st.title("📝 Cadastros")
 
-    tab_clientes, tab_materiais, tab_grupos = st.tabs(["Clientes", "Materiais", "Grupos de Cliente"])
+    tab_clientes, tab_materiais, tab_grupos = st.tabs(["🏢 Clientes", "📦 Materiais", "👥 Grupos de Cliente"])
 
     # --- TAB: CLIENTES ---
     with tab_clientes:
         st.subheader("Clientes")
 
         # Adicionar novo cliente
-        col_nc1, col_nc2, col_nc3 = st.columns([3, 1, 1])
+        col_nc1, col_nc2 = st.columns([3, 1])
         with col_nc1:
-            novo_cliente_nome = st.text_input("Novo Cliente", key="novo_cliente_nome")
+            novo_cliente_nome = st.text_input("Novo Cliente", placeholder="Digite o nome do cliente", key="novo_cliente_nome")
         with col_nc2:
-            novo_cliente_grupo = st.selectbox("Grupo", [""] + [g.nome for g in obter_grupos_cliente()], key="novo_cliente_grupo")
-        with col_nc3:
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("\u2795 Adicionar Cliente", key="btn_add_cliente"):
+            if st.button("\U0001f4e6 Adicionar Cliente", key="btn_add_cliente"):
                 if novo_cliente_nome.strip():
                     session = get_session()
                     try:
@@ -1327,49 +1581,67 @@ def pagina_cadastros():
                 else:
                     st.error("Digite um nome valido.")
 
-        # Filtros
-        col_fc1, col_fc2 = st.columns(2)
-        with col_fc1:
-            filtro_grupo = st.selectbox("Grupo", ["Todos"] + [g.nome for g in obter_grupos_cliente()], key="filtro_grupo_cli")
-        with col_fc2:
-            filtro_ativo = st.selectbox("Status", ["Ativos", "Inativos", "Todos"], key="filtro_ativo_cli")
-
+        # Listar clientes
+        filtro_ativo_c = st.selectbox("Filtro", ["Ativos", "Inativos", "Todos"], key="filtro_cliente_ativo")
         session = get_session()
         try:
             query_c = session.query(Cliente)
-            if filtro_ativo == "Ativos":
+            if filtro_ativo_c == "Ativos":
                 query_c = query_c.filter_by(ativo=True)
-            elif filtro_ativo == "Inativos":
+            elif filtro_ativo_c == "Inativos":
                 query_c = query_c.filter_by(ativo=False)
             clientes = query_c.order_by(Cliente.nome).all()
 
             if clientes:
-                # Filtrar por grupo (baseado no nome do cliente)
-                if filtro_grupo != "Todos":
-                    clientes = [c for c in clientes if filtro_grupo.upper() in c.nome.upper() or c.nome.startswith(filtro_grupo.upper())]
-
-                st.write(f"**{len(clientes)} clientes encontrados**")
                 for c in clientes:
                     status_icon = "\u2705" if c.ativo else "\u274c"
                     with st.expander(f"{status_icon} {c.nome}"):
-                        col_c1, col_c2 = st.columns(2)
+                        col_c1, col_c2, col_c3 = st.columns(3)
                         with col_c1:
                             if c.ativo:
-                                if st.button(f"\U0001f534 Desativar", key=f"desat_cli_{c.id}"):
+                                if st.button("\U0001f534 Desativar", key=f"desat_cliente_{c.id}"):
                                     c.ativo = False
                                     session.commit()
-                                    st.success("Cliente desativado.")
+                                    st.success(f"Cliente '{c.nome}' desativado.")
                                     st.rerun()
                             else:
-                                if st.button(f"\U0001f7e2 Reativar", key=f"reat_cli_{c.id}"):
+                                if st.button("\U0001f7e2 Reativar", key=f"reat_cliente_{c.id}"):
                                     c.ativo = True
                                     session.commit()
-                                    st.success("Cliente reativado.")
+                                    st.success(f"Cliente '{c.nome}' reativado.")
                                     st.rerun()
                         with col_c2:
-                            st.info(f"ID: {c.id}")
+                            novo_nome_c = st.text_input("Novo Nome", value=c.nome, key=f"ren_cliente_{c.id}")
+                            if st.button("\u270f\ufe0f Renomear", key=f"btn_ren_cliente_{c.id}"):
+                                if novo_nome_c.strip() and novo_nome_c.strip().upper() != c.nome:
+                                    # Verificar se o novo nome ja existe
+                                    ja_existe = session.query(Cliente).filter_by(nome=novo_nome_c.strip().upper()).first()
+                                    if ja_existe:
+                                        st.warning("Ja existe um cliente com esse nome!")
+                                    else:
+                                        nome_antigo = c.nome
+                                        c.nome = novo_nome_c.strip().upper()
+                                        # Atualizar tambem nas compras existentes
+                                        session.query(Compra).filter_by(cliente=nome_antigo).update({"cliente": c.nome})
+                                        session.commit()
+                                        st.success("Nome atualizado!")
+                                        st.rerun()
+                                elif not novo_nome_c.strip():
+                                    st.error("Digite um nome valido.")
+                        with col_c3:
+                            if not c.ativo:
+                                if st.button("\U0001f5d1 Excluir", key=f"excl_cliente_{c.id}"):
+                                    # Verificar se tem compras vinculadas
+                                    tem_compras = session.query(Compra).filter_by(cliente=c.nome).first()
+                                    if tem_compras:
+                                        st.warning("Cliente tem compras vinculadas. Nao e possivel excluir.")
+                                    else:
+                                        session.delete(c)
+                                        session.commit()
+                                        st.success("Cliente excluido!")
+                                        st.rerun()
             else:
-                st.info("Nenhum cliente encontrado.")
+                st.info("Nenhum cliente cadastrado.")
         finally:
             session.close()
 
@@ -1378,16 +1650,16 @@ def pagina_cadastros():
         st.subheader("Materiais")
 
         # Adicionar novo material
-        col_nm1, col_nm2, col_nm3, col_nm4 = st.columns([3, 1, 1, 1])
-        with col_nm1:
-            novo_mat_nome = st.text_input("Novo Material", key="novo_mat_nome")
-        with col_nm2:
-            novo_mat_tipo = st.selectbox("Tipo", ["material", "epi"], format_func=lambda x: "Limpeza" if x == "material" else "EPI", key="novo_mat_tipo")
-        with col_nm3:
-            novo_mat_grupo = st.text_input("Grupo", key="novo_mat_grupo")
-        with col_nm4:
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("\u2795 Adicionar Material", key="btn_add_mat"):
+        with st.expander("➕ Novo Material", expanded=False):
+            col_nm1, col_nm2, col_nm3 = st.columns(3)
+            with col_nm1:
+                novo_mat_nome = st.text_input("Nome do Material", key="novo_mat_nome")
+            with col_nm2:
+                novo_mat_tipo = st.selectbox("Tipo", ["material", "epi"], format_func=lambda x: "Material de Limpeza" if x == "material" else "EPI", key="novo_mat_tipo")
+            with col_nm3:
+                novo_mat_grupo = st.text_input("Grupo", placeholder="Ex: Detergentes e Desinfetantes", key="novo_mat_grupo")
+
+            if st.button("➕ Adicionar Material", key="btn_add_material"):
                 if novo_mat_nome.strip():
                     session = get_session()
                     try:
@@ -1395,8 +1667,12 @@ def pagina_cadastros():
                         if existe:
                             st.warning("Material ja existe!")
                         else:
-                            grupo = novo_mat_grupo.strip().upper() if novo_mat_grupo.strip() else "OUTROS"
-                            session.add(Material(nome=novo_mat_nome.strip().upper(), tipo=novo_mat_tipo, grupo=grupo, ativo=True))
+                            session.add(Material(
+                                nome=novo_mat_nome.strip().upper(),
+                                tipo=novo_mat_tipo,
+                                grupo=novo_mat_grupo.strip().upper() if novo_mat_grupo.strip() else "OUTROS",
+                                ativo=True,
+                            ))
                             session.commit()
                             st.success(f"Material '{novo_mat_nome.strip().upper()}' cadastrado!")
                             st.rerun()
@@ -1440,29 +1716,56 @@ def pagina_cadastros():
                         status_icon = "\u2705" if m.ativo else "\u274c"
                         tipo_label = "Limpeza" if m.tipo == "material" else "EPI"
                         with st.expander(f"{status_icon} {m.nome} ({tipo_label})"):
-                            col_m1, col_m2, col_m3 = st.columns(3)
+                            col_m1, col_m2, col_m3, col_m4 = st.columns(4)
                             with col_m1:
                                 if m.ativo:
-                                    if st.button(f"\U0001f534 Desativar", key=f"desat_mat_{m.id}"):
+                                    if st.button("\U0001f534 Desativar", key=f"desat_mat_{m.id}"):
                                         m.ativo = False
                                         session.commit()
                                         st.success("Material desativado.")
                                         st.rerun()
                                 else:
-                                    if st.button(f"\U0001f7e2 Reativar", key=f"reat_mat_{m.id}"):
+                                    if st.button("\U0001f7e2 Reativar", key=f"reat_mat_{m.id}"):
                                         m.ativo = True
                                         session.commit()
                                         st.success("Material reativado.")
                                         st.rerun()
                             with col_m2:
+                                novo_nome_m = st.text_input("Novo Nome", value=m.nome, key=f"edit_nome_mat_{m.id}")
+                                if st.button("\u270f\ufe0f Renomear", key=f"btn_ren_mat_{m.id}"):
+                                    if novo_nome_m.strip() and novo_nome_m.strip().upper() != m.nome:
+                                        ja_existe = session.query(Material).filter_by(nome=novo_nome_m.strip().upper()).first()
+                                        if ja_existe:
+                                            st.warning("Ja existe um material com esse nome!")
+                                        else:
+                                            nome_antigo = m.nome
+                                            m.nome = novo_nome_m.strip().upper()
+                                            # Atualizar tambem nas compras existentes
+                                            session.query(Compra).filter_by(material=nome_antigo).update({"material": m.nome})
+                                            session.commit()
+                                            st.success("Nome do material atualizado!")
+                                            st.rerun()
+                                    elif not novo_nome_m.strip():
+                                        st.error("Digite um nome valido.")
+                            with col_m3:
                                 novo_grupo_m = st.text_input("Novo Grupo", value=m.grupo or "", key=f"edit_grupo_mat_{m.id}")
-                                if st.button(f"\u270f\ufe0f Alterar Grupo", key=f"btn_alt_grupo_{m.id}"):
+                                if st.button("\U0001f4cb Alterar Grupo", key=f"btn_alt_grupo_{m.id}"):
                                     m.grupo = novo_grupo_m.strip().upper() if novo_grupo_m.strip() else "OUTROS"
                                     session.commit()
                                     st.success("Grupo atualizado!")
                                     st.rerun()
-                            with col_m3:
+                            with col_m4:
                                 st.info(f"Tipo: {tipo_label}")
+                                if not m.ativo:
+                                    if st.button("\U0001f5d1 Excluir", key=f"excl_mat_{m.id}"):
+                                        tem_compras = session.query(Compra).filter_by(material=m.nome).first()
+                                        if tem_compras:
+                                            st.warning("Material tem compras vinculadas. Nao e possivel excluir.")
+                                        else:
+                                            session.delete(m)
+                                            session.commit()
+                                            st.success("Material excluido!")
+                                            st.rerun()
             else:
                 st.info("Nenhum material encontrado.")
         finally:
@@ -1478,7 +1781,7 @@ def pagina_cadastros():
             novo_grupo_nome = st.text_input("Novo Grupo", key="novo_grupo_nome")
         with col_ng2:
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("\u2795 Adicionar Grupo", key="btn_add_grupo"):
+            if st.button("➕ Adicionar Grupo", key="btn_add_grupo"):
                 if novo_grupo_nome.strip():
                     session = get_session()
                     try:
@@ -1504,18 +1807,18 @@ def pagina_cadastros():
             grupos = session.query(GrupoCliente).order_by(GrupoCliente.nome).all()
             if grupos:
                 for g in grupos:
-                    with st.expander(f"\U0001f465 {g.nome}"):
+                    with st.expander(f"👥 {g.nome}"):
                         col_g1, col_g2 = st.columns(2)
                         with col_g1:
                             novo_nome_g = st.text_input("Novo Nome", value=g.nome, key=f"ren_grupo_{g.id}")
-                            if st.button(f"\u270f\ufe0f Renomear", key=f"btn_ren_grupo_{g.id}"):
+                            if st.button(f"✏️ Renomear", key=f"btn_ren_grupo_{g.id}"):
                                 if novo_nome_g.strip() and novo_nome_g.strip().upper() != g.nome:
                                     g.nome = novo_nome_g.strip().upper()
                                     session.commit()
                                     st.success("Nome atualizado!")
                                     st.rerun()
                         with col_g2:
-                            if st.button(f"\U0001f5d1\ufe0f Excluir", key=f"exc_grupo_{g.id}"):
+                            if st.button(f"🗑️ Excluir", key=f"exc_grupo_{g.id}"):
                                 session.delete(g)
                                 session.commit()
                                 st.success("Grupo excluido!")
@@ -1530,12 +1833,12 @@ def pagina_cadastros():
 # PAGINA: EDITAR ITEM INDIVIDUAL
 # ============================================================
 def pagina_editar_item():
-    st.title("\u270f\ufe0f Editar Item")
+    st.title("✏️ Editar Item")
 
     # Selecionar item por ID
     item_id = st.number_input("ID do Item", min_value=1, step=1, key="editar_item_id_input")
 
-    if st.button("\U0001f50d Buscar Item"):
+    if st.button("🔍 Buscar Item"):
         session = get_session()
         try:
             item = session.query(Compra).get(item_id)
@@ -1598,7 +1901,7 @@ def pagina_editar_item():
         st.markdown("---")
         col_save, col_cancel = st.columns(2)
         with col_save:
-            if st.button("\U0001f4be Salvar", type="primary", key="save_edit_item"):
+            if st.button("💾 Salvar", type="primary", key="save_edit_item"):
                 session = get_session()
                 try:
                     item = session.query(Compra).get(item_id)
@@ -1619,7 +1922,7 @@ def pagina_editar_item():
                             item.arquivo_comprovante = salvar_arquivo(arq_comp, "comp")
 
                         session.commit()
-                        st.success("\u2705 Item atualizado com sucesso!")
+                        st.success("✅ Item atualizado com sucesso!")
                         del st.session_state["editar_item_data"]
                         del st.session_state["editar_item_id"]
                     else:
@@ -1631,7 +1934,7 @@ def pagina_editar_item():
                     session.close()
 
         with col_cancel:
-            if st.button("\u274c Cancelar", key="cancel_edit_item"):
+            if st.button("❌ Cancelar", key="cancel_edit_item"):
                 del st.session_state["editar_item_data"]
                 del st.session_state["editar_item_id"]
                 st.rerun()
@@ -1653,10 +1956,12 @@ def main():
     PAGINAS_NAV = ["Dashboard", "Orcamentos", "Novo Orcamento", "Editar Orcamento", "Editar Item", "Imprimir", "Cadastros"]
 
     with st.sidebar:
-        st.markdown("## \U0001f6d2 Sistema de Compras")
+        st.markdown("## 🛒 Sistema de Compras")
         st.markdown("---")
 
         # Sincroniza o radio com pagina_atual via on_change
+        # O index e calculado a partir de pagina_atual para que o radio
+        # reflita navegacoes vindas de botoes (Editar, Imprimir, etc.)
         idx = PAGINAS_NAV.index(st.session_state["pagina_atual"]) if st.session_state["pagina_atual"] in PAGINAS_NAV else 0
         st.radio(
             "Navegacao",
