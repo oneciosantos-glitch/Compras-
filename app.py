@@ -129,9 +129,17 @@ def popular_dados():
                 session.add(GrupoCliente(nome=nome))
         session.commit()
 
-        # --- CLIENTES (lista exata conforme sistema original) ---
+        # --- CLIENTES (lista conforme imagens do sistema) ---
         clientes_lista = [
             # ASSAI
+            "ASSAI - FILIAL 03",
+            "ASSAI - FILIAL 04",
+            "ASSAI - FILIAL 05",
+            "ASSAI - FILIAL 06",
+            "ASSAI - FILIAL 07",
+            "ASSAI - FILIAL 08",
+            "ASSAI - FILIAL 09",
+            "ASSAI - FILIAL 10",
             "ASSAI MONTESE - CE",
             "CD ASSAI PAULISTA",
             "ASSAI NATAL RN",
@@ -300,7 +308,6 @@ def popular_dados():
             "EMPORIO KARLA - MANEPA",
             "EMPORIO KARLA - BEIRA MAR",
             "EMPORIO KARLA - PAU AMARELO",
-            "PRE CADASTRO",
             "GRUPO A B ARAUJO/PE",
             "CAMIL ALIMENTOS/PE",
             "FG SERVICES EIRELI ME",
