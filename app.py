@@ -1308,27 +1308,33 @@ def pagina_editar_item():
 # ============================================================
 # NAVEGACAO PRINCIPAL
 # ============================================================
+def _on_nav_change():
+    """Callback quando o radio de navegacao muda."""
+    st.session_state["pagina_atual"] = st.session_state["nav_radio"]
+
+
 def main():
     # Pagina padrao
     if "pagina_atual" not in st.session_state:
         st.session_state["pagina_atual"] = "Dashboard"
 
+    PAGINAS_NAV = ["Dashboard", "Orcamentos", "Novo Orcamento", "Editar Orcamento", "Editar Item", "Imprimir", "Cadastros"]
+
     with st.sidebar:
         st.markdown("## 🛒 Sistema de Compras")
         st.markdown("---")
 
-        pagina = st.radio(
+        # Sincroniza o radio com pagina_atual via on_change
+        # O index e calculado a partir de pagina_atual para que o radio
+        # reflita navegacoes vindas de botoes (Editar, Imprimir, etc.)
+        idx = PAGINAS_NAV.index(st.session_state["pagina_atual"]) if st.session_state["pagina_atual"] in PAGINAS_NAV else 0
+        st.radio(
             "Navegacao",
-            ["Dashboard", "Orcamentos", "Novo Orcamento", "Editar Orcamento", "Editar Item", "Imprimir", "Cadastros"],
-            index=["Dashboard", "Orcamentos", "Novo Orcamento", "Editar Orcamento", "Editar Item", "Imprimir", "Cadastros"].index(
-                st.session_state["pagina_atual"]
-            ) if st.session_state["pagina_atual"] in ["Dashboard", "Orcamentos", "Novo Orcamento", "Editar Orcamento", "Editar Item", "Imprimir", "Cadastros"] else 0,
+            PAGINAS_NAV,
+            index=idx,
             key="nav_radio",
+            on_change=_on_nav_change,
         )
-
-        if pagina != st.session_state["pagina_atual"]:
-            st.session_state["pagina_atual"] = pagina
-            st.rerun()
 
         st.markdown("---")
         st.markdown("""
