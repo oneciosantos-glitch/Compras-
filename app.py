@@ -2433,6 +2433,140 @@ IMAGENS_BASE64 = {
         "Mb2+5K7HABvbGCHEfHrrNHsNMBeFmRDT68tI9/8BFtZVq3gk5PYAAAAASUVORK5CYII=",
 }
 
+_IMAGEM_SUBGRUPO = {
+    "AGUA SANITARIA 1L": "AGUA_SANITARIA_E_ALVEJANTES.png",
+    "AGUA SANITARIA 2L": "AGUA_SANITARIA_E_ALVEJANTES.png",
+    "AGUA SANITARIA 5L": "AGUA_SANITARIA_E_ALVEJANTES.png",
+    "ALVEJANTE COM CLORETOS 5L": "AGUA_SANITARIA_E_ALVEJANTES.png",
+    "ALVEJANTE OXIGENADO 2L": "AGUA_SANITARIA_E_ALVEJANTES.png",
+    "AMACIANTE DE ROUPAS 2L": "OUTROS_LIMPEZA.png",
+    "AMACIANTE DE ROUPAS 5L": "OUTROS_LIMPEZA.png",
+    "ARNES DE SEGURANCA COM CINTO": "CINTOS_E_ARNES.png",
+    "AVENTAL DE LONA 70CM": "AVENTAIS_E_MACACOES.png",
+    "AVENTAL DE PVC 70CM": "AVENTAIS_E_MACACOES.png",
+    "AVENTAL DESCARTAVEL 70CM PACOTE C/ 10": "AVENTAIS_E_MACACOES.png",
+    "BACIA PLASTICA 10L": "OUTROS_LIMPEZA.png",
+    "BALDE PLASTICO 10L": "OUTROS_LIMPEZA.png",
+    "BALDE PLASTICO 20L": "OUTROS_LIMPEZA.png",
+    "BLOCO DESODORIZADOR VASO SANITARIO": "DESODORIZADORES.png",
+    "BOTA DE BORRACHA CANO ALTO 39": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE BORRACHA CANO ALTO 40": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE BORRACHA CANO ALTO 41": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE BORRACHA CANO ALTO 42": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE BORRACHA CANO ALTO 43": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE SEGURANCA COM BIQUEIRA ACO 39": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE SEGURANCA COM BIQUEIRA ACO 40": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE SEGURANCA COM BIQUEIRA ACO 41": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE SEGURANCA COM BIQUEIRA ACO 42": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE SEGURANCA COM BIQUEIRA ACO 43": "CALCADOS_DE_PROTECAO.png",
+    "BOTA DE SEGURANCA COM BIQUEIRA ACO 44": "CALCADOS_DE_PROTECAO.png",
+    "BUCHA DE ACO 8 UNIDADES": "ESPONJAS_E_BUCHAS.png",
+    "BUCHA VEGETAL UNIDADE": "ESPONJAS_E_BUCHAS.png",
+    "CABO PARA VASSOURA E RODO": "VASSOURAS_E_RODOS.png",
+    "CAPACETE DE SEGURANCA AZUL": "CAPACETES_E_PROTECAO_CABECA.png",
+    "CAPACETE DE SEGURANCA BRANCO": "CAPACETES_E_PROTECAO_CABECA.png",
+    "CAPACETE DE SEGURANCA VERMELHO": "CAPACETES_E_PROTECAO_CABECA.png",
+    "CAPUZ PARA CAPACETE": "CAPACETES_E_PROTECAO_CABECA.png",
+    "CERA EM PASTA 1KG": "CERAS_E_ENCERADEIRAS.png",
+    "CERA LIQUIDA PARA PISO 5L": "CERAS_E_ENCERADEIRAS.png",
+    "CINTO DE SEGURANCA TIPO PARAQUEDISTA": "CINTOS_E_ARNES.png",
+    "COLETE REFLETIVO G": "SINALIZACAO_E_OUTROS_EPI.png",
+    "COLETE REFLETIVO GG": "SINALIZACAO_E_OUTROS_EPI.png",
+    "COLETE REFLETIVO M": "SINALIZACAO_E_OUTROS_EPI.png",
+    "CONE COM FITA REFLETIVA": "SINALIZACAO_E_OUTROS_EPI.png",
+    "CONE DE SINALIZACAO 50CM": "SINALIZACAO_E_OUTROS_EPI.png",
+    "CONE DE SINALIZACAO 75CM": "SINALIZACAO_E_OUTROS_EPI.png",
+    "DESINFETANTE CONCENTRADO 1L": "DETERGENTES_E_DESINFETANTES.png",
+    "DESINFETANTE FLORAL 2L": "DETERGENTES_E_DESINFETANTES.png",
+    "DESINFETANTE LAVANDA 5L": "DETERGENTES_E_DESINFETANTES.png",
+    "DESODORIZADOR BANHEIRO 300ML": "DESODORIZADORES.png",
+    "DESODORIZADOR DE AMBIENTE 2L": "DESODORIZADORES.png",
+    "DESODORIZADOR DE AMBIENTE 500ML": "DESODORIZADORES.png",
+    "DETERGENTE EM PO 1KG": "DETERGENTES_E_DESINFETANTES.png",
+    "DETERGENTE LIQUIDO NEUTRO 500ML": "DETERGENTES_E_DESINFETANTES.png",
+    "DETERGENTE LIQUIDO NEUTRO 5L": "DETERGENTES_E_DESINFETANTES.png",
+    "ESCORREDOR DE LOUCA": "OUTROS_LIMPEZA.png",
+    "ESCOVA DE CHAO COM CABO": "OUTROS_LIMPEZA.png",
+    "ESCOVA DE PIA UNIDADE": "OUTROS_LIMPEZA.png",
+    "ESPATIFOR 500ML": "OUTROS_LIMPEZA.png",
+    "ESPONJA DE ACO PACOTE C/ 6": "ESPONJAS_E_BUCHAS.png",
+    "ESPONJA DUPLA FACE PACOTE C/ 3": "ESPONJAS_E_BUCHAS.png",
+    "FILTRO PARA MASCARA P2 PAR": "MASCARAS.png",
+    "FILTRO PARA MASCARA QUIMICO PAR": "MASCARAS.png",
+    "FITA ZEBRADA 50M": "SINALIZACAO_E_OUTROS_EPI.png",
+    "FLANELA PARA PISO 50X70CM": "PANOS_E_FLANELAS.png",
+    "LIMPADOR DE ALUMINIO 500ML": "OUTROS_LIMPEZA.png",
+    "LIMPADOR DE BANHEIRO 500ML": "LIMPADORES_MULTIUSO.png",
+    "LIMPADOR DE COZINHA 500ML": "LIMPADORES_MULTIUSO.png",
+    "LIMPADOR DE INOX 500ML": "OUTROS_LIMPEZA.png",
+    "LIMPADOR DE PISO 5L": "LIMPADORES_MULTIUSO.png",
+    "LIMPADOR DE VIDROS 500ML": "LIMPADORES_MULTIUSO.png",
+    "LIMPADOR DESENGORDURANTE 5L": "LIMPADORES_MULTIUSO.png",
+    "LIMPADOR MULTIUSO 500ML": "LIMPADORES_MULTIUSO.png",
+    "LIMPADOR MULTIUSO 5L": "LIMPADORES_MULTIUSO.png",
+    "LUSTRA MOVEIS 500ML": "LIMPADORES_MULTIUSO.png",
+    "LUSTRA PISO 5L": "CERAS_E_ENCERADEIRAS.png",
+    "LUVAS ANTICORTE NIVEL 5 G": "LUVAS.png",
+    "LUVAS ANTICORTE NIVEL 5 M": "LUVAS.png",
+    "LUVAS DE BORRACHA G": "LUVAS.png",
+    "LUVAS DE BORRACHA M": "LUVAS.png",
+    "LUVAS DE LATEX G 50UN": "LUVAS.png",
+    "LUVAS DE LATEX M 50UN": "LUVAS.png",
+    "LUVAS DE PROCEDIMENTO G 100UN": "LUVAS.png",
+    "LUVAS DE PROCEDIMENTO M 100UN": "LUVAS.png",
+    "LUVAS DE PROCEDIMENTO P 100UN": "LUVAS.png",
+    "LUVAS DE VAQUETA G": "LUVAS.png",
+    "LUVAS DE VAQUETA M": "LUVAS.png",
+    "LUVAS TRICOTADAS COM PALMAS G": "LUVAS.png",
+    "LUVAS TRICOTADAS COM PALMAS M": "LUVAS.png",
+    "MACACAO BRANCO G": "AVENTAIS_E_MACACOES.png",
+    "MACACAO BRANCO GG": "AVENTAIS_E_MACACOES.png",
+    "MACACAO BRANCO M": "AVENTAIS_E_MACACOES.png",
+    "MACACAO DESCARTAVEL G": "AVENTAIS_E_MACACOES.png",
+    "MACACAO DESCARTAVEL GG": "AVENTAIS_E_MACACOES.png",
+    "MACACAO DESCARTAVEL M": "AVENTAIS_E_MACACOES.png",
+    "MASCARA CIRURGICA CAIXA C/ 50": "MASCARAS.png",
+    "MASCARA PFF2 CAIXA C/ 10": "MASCARAS.png",
+    "MASCARA PFF2 UNIDADE": "MASCARAS.png",
+    "MASCARA SEMI-FACIAL REUTILIZAVEL": "MASCARAS.png",
+    "OCULOS DE PROTECAO AMBIDENTRO": "OCULOS_DE_PROTECAO.png",
+    "OCULOS DE PROTECAO ESCURO": "OCULOS_DE_PROTECAO.png",
+    "OCULOS DE PROTECAO TRANSPARENTE": "OCULOS_DE_PROTECAO.png",
+    "PA DE LIXO PLASTICA": "VASSOURAS_E_RODOS.png",
+    "PANO DE CHAO ALGODAO 50X50CM": "PANOS_E_FLANELAS.png",
+    "PANO DE CHAO TNT 50X50CM": "PANOS_E_FLANELAS.png",
+    "PANO DE PRATO ALGODAO 40X40CM": "PANOS_E_FLANELAS.png",
+    "PLACA DE SINALIZACAO PISO MOLHADO": "SINALIZACAO_E_OUTROS_EPI.png",
+    "PROTECAO LABIAL FPS 30": "SINALIZACAO_E_OUTROS_EPI.png",
+    "PROTECAO SOLAR FPS 50 120ML": "SINALIZACAO_E_OUTROS_EPI.png",
+    "PROTETOR AURICULAR CONCHA": "CAPACETES_E_PROTECAO_CABECA.png",
+    "PROTETOR AURICULAR PLUG CAIXA C/ 100": "CAPACETES_E_PROTECAO_CABECA.png",
+    "PROTETOR AURICULAR PLUG UNIDADE": "CAPACETES_E_PROTECAO_CABECA.png",
+    "REMOVEDOR DE MANCHAS 500ML": "OUTROS_LIMPEZA.png",
+    "REMOVEDOR DE OLEOS 5L": "OUTROS_LIMPEZA.png",
+    "RODO COM CABO 60CM": "PANOS_E_FLANELAS.png",
+    "RODO DE PISO COM CABO 60CM": "VASSOURAS_E_RODOS.png",
+    "RODO DE PISO COM CABO 90CM": "VASSOURAS_E_RODOS.png",
+    "SABAO EM BARRA 200G": "SABOES_E_SABONETES.png",
+    "SABAO EM PO 1KG": "SABOES_E_SABONETES.png",
+    "SABAO EM PO 5KG": "SABOES_E_SABONETES.png",
+    "SABAO LIQUIDO PARA PISO 5L": "DETERGENTES_E_DESINFETANTES.png",
+    "SABONETE EM BARRA 90G": "SABOES_E_SABONETES.png",
+    "SABONETE LIQUIDO 500ML": "SABOES_E_SABONETES.png",
+    "SACO DE LIXO 30X40 BRANCO 50UN": "SACOS_DE_LIXO.png",
+    "SACO DE LIXO 30X40 PRETO 50UN": "SACOS_DE_LIXO.png",
+    "SACO DE LIXO 50X70 BRANCO 25UN": "SACOS_DE_LIXO.png",
+    "SACO DE LIXO 50X70 PRETO 25UN": "SACOS_DE_LIXO.png",
+    "SACO DE LIXO 60X90 PRETO 15UN": "SACOS_DE_LIXO.png",
+    "SACO DE LIXO 70X110 PRETO 10UN": "SACOS_DE_LIXO.png",
+    "TALABARTE DUPLO": "CINTOS_E_ARNES.png",
+    "TALABARTE SIMPLES": "CINTOS_E_ARNES.png",
+    "VASSOURA DE CHAO C/ CABO": "VASSOURAS_E_RODOS.png",
+    "VASSOURA DE COCO C/ CABO": "VASSOURAS_E_RODOS.png",
+    "VASSOURA DE PIA C/ CABO": "VASSOURAS_E_RODOS.png",
+}
+
+
 ARQ_MODELS_PY = r'''
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime
 from database import Base
@@ -4843,16 +4977,25 @@ def criar_banco():
         print("  e execute este instalador novamente.")
         print("  Os pedidos ja cadastrados serao mantidos se o banco nao for deletado.")
         print("  Os novos clientes/materiais serao adicionados automaticamente (sem duplicar).")
-        try:
-            sys.path.insert(0, PASTA_SISTEMA)
-            from seed import popular_dados
-            print("  Verificando novos dados...")
-            popular_dados()
-            print("  \u2705 Novos clientes/materiais adicionados (sem duplicar existentes).")
-        except Exception as e:
-            print(f"  \u26a0\ufe0f Nao foi possivel verificar novos dados: {e}")
 
-        # Atualizar imagens de materiais existentes que estao sem imagem
+        # PASSO 1: Migracao - adicionar coluna imagem se nao existir
+        try:
+            import sqlite3 as _sq3
+            _conn = _sq3.connect(db_path)
+            _cur = _conn.cursor()
+            # Verificar se a coluna imagem existe
+            _cur.execute("PRAGMA table_info(materiais)")
+            _colunas = [col[1] for col in _cur.fetchall()]
+            if 'imagem' not in _colunas:
+                print("  Adicionando coluna imagem ao banco existente...")
+                _cur.execute("ALTER TABLE materiais ADD COLUMN imagem VARCHAR(500)")
+                _conn.commit()
+                print("  \u2705 Coluna imagem adicionada com sucesso!")
+            _conn.close()
+        except Exception as e:
+            print(f"  \u26a0\ufe0f Nao foi possivel migrar o banco: {e}")
+
+        # PASSO 2: Atualizar imagens de materiais existentes que estao sem imagem
         try:
             import sqlite3 as _sq3
             _conn = _sq3.connect(db_path)
@@ -4872,6 +5015,17 @@ def criar_banco():
         except Exception as e:
             print(f"  \u26a0\ufe0f Nao foi possivel atualizar imagens de materiais existentes: {e}")
 
+        # PASSO 3: Verificar e adicionar novos dados
+        try:
+            sys.path.insert(0, PASTA_SISTEMA)
+            from seed import popular_dados
+            print("  Verificando novos dados...")
+            popular_dados()
+            print("  \u2705 Novos clientes/materiais adicionados (sem duplicar existentes).")
+        except Exception as e:
+            print(f"  \u26a0\ufe0f Nao foi possivel verificar novos dados: {e}")
+
+        # PASSO 4: Gerar arquivos de imagem
         gerar_imagens_materiais()
         return True
 
@@ -4897,7 +5051,6 @@ def criar_banco():
         return False
 
     return True
-
 
 def iniciar_sistema():
     """Inicia o sistema Streamlit."""
