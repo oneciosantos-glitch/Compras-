@@ -76,9 +76,7 @@ class GrupoCliente(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(200), nullable=False, unique=True)
-
 '''
-
 
 ARQ_DATABASE_PY = r'''
 import os
@@ -121,9 +119,7 @@ def init_db():
 def get_session():
     """Retorna uma nova sessao do banco."""
     return SessionLocal()
-
 '''
-
 
 ARQ_SEED_PY = r'''
 from database import get_session, init_db
@@ -593,9 +589,7 @@ def popular_dados():
 if __name__ == "__main__":
     init_db()
     popular_dados()
-
 '''
-
 
 ARQ_APP_PY = r'''
 import os
@@ -704,13 +698,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Inicializar banco na primeira execucao
-if "db_initialized" not in st.session_state:
-    init_db()
-    _migrar_banco()
-    st.session_state["db_initialized"] = True
-
-
+# ============================================================
+# MIGRACAO DO BANCO (deve ser definida ANTES da chamada)
+# ============================================================
 def _migrar_banco():
     """Adiciona colunas novas em bancos de dados existentes."""
     import sqlite3
@@ -730,6 +720,13 @@ def _migrar_banco():
         pass
     finally:
         conn.close()
+
+
+# Inicializar banco na primeira execucao
+if "db_initialized" not in st.session_state:
+    init_db()
+    _migrar_banco()
+    st.session_state["db_initialized"] = True
 
 
 # ============================================================
@@ -2172,8 +2169,8 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 '''
+
 
 
 
